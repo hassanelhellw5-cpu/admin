@@ -49,6 +49,10 @@ export function Donut({ items, tints, center, centerSub, onSliceClick }) {
     fill: tints?.[it.label] || PIE_COLORS[i % PIE_COLORS.length],
   }))
 
+  const hoveredItem = hovered !== null ? data[hovered] : null
+  const centerLabel = hoveredItem ? hoveredItem.name : (centerSub || 'total')
+  const centerValue = hoveredItem ? hoveredItem.value : (center ?? total)
+
   return (
     <div className="donut-wrap">
       <div className="donut-chart-area">
@@ -79,12 +83,11 @@ export function Donut({ items, tints, center, centerSub, onSliceClick }) {
                 />
               ))}
             </Pie>
-            <Tooltip content={<ChartTooltip />} />
           </PieChart>
         </ResponsiveContainer>
         <div className="donut-center-overlay">
-          <strong>{center ?? total}</strong>
-          <span>{centerSub || 'total'}</span>
+          <strong>{centerValue}</strong>
+          <span>{centerLabel}</span>
         </div>
       </div>
       <div className="legend">
