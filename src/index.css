@@ -136,6 +136,7 @@ img { max-width: 100%; display: block; }
 .stat-sub { font-size: 12px; color: var(--text-faint); margin-top: 4px; }
 
 .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 18px; margin-bottom: 22px; }
+.grid-2 > * { align-self: start; }
 
 /* ---------- Attention cards ---------- */
 .attention-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 22px; }
