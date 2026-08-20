@@ -9,8 +9,8 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ---- Donut ---- */
-.donut-wrap { position: relative; display: flex; flex-direction: column; align-items: center; }
-.donut-chart-area { position: relative; width: 100%; height: 200px; }
+.donut-wrap { display: flex; align-items: center; gap: 22px; padding: 10px 0; }
+.donut-chart-area { position: relative; width: 180px; height: 180px; flex-shrink: 0; }
 .donut-center-overlay {
   position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
   text-align: center; pointer-events: none; z-index: 2;
@@ -18,7 +18,7 @@
 .donut-center-overlay strong { display: block; font-size: 24px; font-weight: 800; color: var(--text); line-height: 1.1; }
 .donut-center-overlay span { font-size: 11px; color: var(--text-faint); display: block; margin-top: 2px; }
 
-.legend { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; width: 100%; }
+.legend { flex: 1; display: flex; flex-direction: column; gap: 6px; }
 .legend-item {
   display: flex; align-items: center; gap: 8px; font-size: 13px;
   padding: 5px 10px; border-radius: 8px; cursor: default; transition: background 0.15s;
@@ -27,6 +27,20 @@
 .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
 .legend-item .lb { color: var(--text-dim); flex: 1; font-weight: 500; }
 .legend-item .lv { font-weight: 700; color: var(--text); font-size: 14px; }
+.legend-pct { font-weight: 500; color: var(--text-faint); font-size: 12px; }
+
+/* ---- CSS Bar List ---- */
+.css-bar-list { display: flex; flex-direction: column; gap: 12px; }
+.css-bar-row { transition: transform 0.15s; padding: 2px 0; }
+.css-bar-row:hover { transform: translateX(2px); }
+.css-bar-hovered .css-bar-track { box-shadow: 0 0 0 1px rgba(124,58,237,0.2); }
+.css-bar-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.css-bar-label { display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text); }
+.css-bar-dot { width: 8px; height: 8px; border-radius: 3px; flex-shrink: 0; }
+.css-bar-value { font-size: 13px; font-weight: 700; color: var(--text); font-variant-numeric: tabular-nums; }
+.css-bar-pct { font-weight: 500; color: var(--text-faint); font-size: 12px; }
+.css-bar-track { height: 8px; border-radius: 999px; background: #f0f1f7; overflow: hidden; }
+.css-bar-fill { height: 100%; border-radius: 999px; transition: width 0.5s ease; min-width: 2px; }
 
 /* ---- Tooltip ---- */
 .chart-tooltip {
@@ -40,29 +54,9 @@
 .chart-tooltip-label { color: #6b7280; font-weight: 600; margin-bottom: 2px; }
 .chart-tooltip-val { font-weight: 700; font-size: 14px; }
 
-/* ---- Horizontal bar list (legacy fallback) ---- */
-.bar-list { display: flex; flex-direction: column; gap: 12px; padding: 6px 0; }
-.bar-row { display: flex; flex-direction: column; gap: 4px; }
-.bar-row-head { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; }
-.bar-row-label { color: var(--text-dim); font-weight: 600; }
-.bar-row-val { font-weight: 700; }
-.bar-row-track { height: 8px; border-radius: 999px; background: #eef0f6; overflow: hidden; }
-.bar-row-fill { height: 100%; border-radius: 999px; transition: width 0.4s ease; }
-
-/* ---- vertical bars ---- */
-.vbars { display: flex; align-items: flex-end; gap: 12px; height: 200px; padding: 10px 4px 0; }
-.vbar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; }
-.vbar-val { font-weight: 700; font-size: 13px; }
-.vbar-track { width: 100%; max-width: 54px; height: 150px; background: #eef0f6; border-radius: 8px; display: flex; align-items: flex-end; overflow: hidden; }
-.vbar-fill { width: 100%; border-radius: 8px; transition: height 0.4s ease; }
-.vbar-label { font-size: 11px; color: var(--text-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-
-/* ---- chart legend ---- */
+/* ---- chart series legend ---- */
 .chart-series-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: var(--text-dim); }
 .chart-series-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; }
-
-/* ---- stat card tweaks ---- */
-.stat-card .stat-sub { font-size: 12px; color: var(--text-faint); margin-top: 4px; }
 
 /* ---- attention strip ---- */
 .attention-grid {
@@ -95,3 +89,6 @@
   letter-spacing: 0.05em; color: var(--text-dim); margin: 0 0 4px;
 }
 .chart-section-title svg { color: var(--primary); }
+
+/* ---- stat card tweaks ---- */
+.stat-card .stat-sub { font-size: 12px; color: var(--text-faint); margin-top: 4px; }

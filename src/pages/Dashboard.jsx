@@ -35,7 +35,12 @@ const STATUS_TINTS = { Active: '#10b981', Inactive: '#9ca3af', Blocked: '#ef4444
 const REPORT_TINTS = { Pending: '#f59e0b', 'In Review': '#7c3aed', Resolved: '#10b981', Closed: '#9ca3af', Dismissed: '#64748b' }
 const BOOKING_TINTS = { Pending: '#f59e0b', Confirmed: '#3b82f6', InProgress: '#7c3aed', Completed: '#10b981', Cancelled: '#ef4444' }
 const CASTING_TINTS = { Open: '#10b981', Closed: '#64748b', Draft: '#9ca3af', Cancelled: '#ef4444' }
+const CAMPAIGN_TINTS = { Active: '#3b82f6', Draft: '#9ca3af', Completed: '#10b981', Cancelled: '#ef4444' }
+const EVENT_TINTS = { Draft: '#9ca3af', Open: '#10b981', Published: '#3b82f6', Completed: '#7c3aed', Cancelled: '#ef4444' }
 const CONTRACT_TINTS = { Draft: '#9ca3af', Pending: '#f59e0b', Signed: '#10b981', Expired: '#64748b', Cancelled: '#ef4444' }
+const VERIF_TINTS = { Pending: '#f59e0b', Approved: '#10b981', Rejected: '#ef4444' }
+const TICKET_TINTS = { Open: '#f59e0b', WaitingOnCustomer: '#3b82f6', InProgress: '#7c3aed', Resolved: '#10b981', Closed: '#9ca3af' }
+const SUB_TINTS = { Free: '#9ca3af', Starter: '#3b82f6', Professional: '#8b5cf6', Enterprise: '#f59e0b' }
 
 export default function Dashboard() {
   const [s, setS] = useState({})
@@ -155,7 +160,7 @@ export default function Dashboard() {
         <StatCard icon={HandCoins} label="Pending payouts" value={withdrawals.filter((w) => w.status === 'Pending').length} sub={`$${Number(pendingWdAmount).toLocaleString()} to pay`} gradient="linear-gradient(135deg,#f59e0b,#f97316)" />
       </div>
 
-      {/* ===== Row 2: Users Pie + Status Bars ===== */}
+      {/* ===== Row 2: Users ===== */}
       <div className="grid-2">
         <ChartCard title="Users by role" icon={Users}>
           <Donut items={orderedCounts(roleCounts)} tints={ROLE_TINTS} center={users.length || dash.totalUsers} centerSub="accounts" />
@@ -165,59 +170,57 @@ export default function Dashboard() {
         </ChartCard>
       </div>
 
-      {/* ===== Row 3: Reports Pie + Bookings Bars ===== */}
+      {/* ===== Row 3: Bookings & Reports ===== */}
       <div className="grid-2">
-        <ChartCard title="Reports by status" icon={LifeBuoy}>
-          <Donut items={orderedCounts(reportCounts)} tints={REPORT_TINTS} center={reports.length} centerSub="reports" />
-        </ChartCard>
         <ChartCard title="Bookings by status" icon={Briefcase}>
-          <BarList items={orderedCounts(bookingCounts)} tints={BOOKING_TINTS} />
+          <Donut items={orderedCounts(bookingCounts)} tints={BOOKING_TINTS} center={bookings.length} centerSub="bookings" />
+        </ChartCard>
+        <ChartCard title="Reports by status" icon={LifeBuoy}>
+          <BarList items={orderedCounts(reportCounts)} tints={REPORT_TINTS} />
         </ChartCard>
       </div>
 
-      {/* ===== Row 4: Contracts + Subscriptions ===== */}
+      {/* ===== Row 4: Contracts & Verifications ===== */}
       <div className="grid-2">
         <ChartCard title="Contracts by status" icon={FileSignature}>
-          <div>
-            <BarList items={orderedCounts(contractCounts)} tints={CONTRACT_TINTS} />
-            <div style={{ marginTop: 10, padding: '8px 12px', background: 'var(--violet-soft)', borderRadius: 8, fontSize: 12, color: '#6d28d9', fontWeight: 600 }}>
-              Signed rate: {contractSignedRate}% ({totalSigned}/{contracts.length})
-            </div>
+          <BarList items={orderedCounts(contractCounts)} tints={CONTRACT_TINTS} />
+          <div style={{ marginTop: 10, padding: '8px 12px', background: 'var(--violet-soft)', borderRadius: 8, fontSize: 12, color: '#6d28d9', fontWeight: 600 }}>
+            Signed rate: {contractSignedRate}% ({totalSigned}/{contracts.length})
           </div>
         </ChartCard>
+        <ChartCard title="Verifications by status" icon={BadgeCheck}>
+          <Donut items={orderedCounts(verifCounts)} tints={VERIF_TINTS} center={verifications.length} centerSub="requests" />
+        </ChartCard>
+      </div>
+
+      {/* ===== Row 5: Castings / Campaigns / Events ===== */}
+      <div className="grid-3">
+        <ChartCard title="Castings" icon={Megaphone}>
+          <BarList items={orderedCounts(castingCounts)} tints={CASTING_TINTS} />
+        </ChartCard>
+        <ChartCard title="Campaigns" icon={Megaphone}>
+          <BarList items={orderedCounts(campaignCounts)} tints={CAMPAIGN_TINTS} />
+        </ChartCard>
+        <ChartCard title="Events" icon={CalendarDays}>
+          <BarList items={orderedCounts(eventCounts)} tints={EVENT_TINTS} />
+        </ChartCard>
+      </div>
+
+      {/* ===== Row 6: Subscriptions & Tickets ===== */}
+      <div className="grid-2">
         <ChartCard title="Subscriptions by plan" icon={CreditCard}>
           {subStats.byPlan && subStats.byPlan.length > 0 ? (
-            <BarList items={subStats.byPlan.map((p) => ({ label: p.plan, value: p.count }))} tints={{ Free: '#9ca3af', Starter: '#3b82f6', Professional: '#8b5cf6', Enterprise: '#f59e0b' }} />
+            <BarList items={subStats.byPlan.map((p) => ({ label: p.plan, value: p.count }))} tints={SUB_TINTS} />
           ) : (
             <div className="chart-empty">No subscription data</div>
           )}
         </ChartCard>
-      </div>
-
-      {/* ===== Row 5: Castings/Campaigns/Events + Tickets ===== */}
-      <div className="grid-2">
-        <ChartCard title="Castings / Campaigns / Events" icon={Megaphone}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
-            <div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-faint)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>Castings</div>
-              <BarList items={orderedCounts(castingCounts)} tints={CASTING_TINTS} />
-            </div>
-            <div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-faint)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>Campaigns</div>
-              <BarList items={orderedCounts(campaignCounts)} tints={REPORT_TINTS} />
-            </div>
-            <div>
-              <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--text-faint)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: 8 }}>Events</div>
-              <BarList items={orderedCounts(eventCounts)} tints={BOOKING_TINTS} />
-            </div>
-          </div>
-        </ChartCard>
         <ChartCard title="Support tickets" icon={LifeBuoy}>
-          <BarList items={orderedCounts(ticketCounts)} tints={{ Open: '#f59e0b', WaitingOnCustomer: '#3b82f6', InProgress: '#7c3aed', Resolved: '#10b981', Closed: '#9ca3af' }} />
+          <BarList items={orderedCounts(ticketCounts)} tints={TICKET_TINTS} />
         </ChartCard>
       </div>
 
-      {/* ===== Row 6: Needs Attention ===== */}
+      {/* ===== Row 7: Needs Attention ===== */}
       {pendingAttention.length > 0 && (
         <>
           <div className="chart-section-title" style={{ marginBottom: 12 }}><AlertTriangle size={15} /> Needs attention</div>
@@ -236,10 +239,10 @@ export default function Dashboard() {
         </>
       )}
 
-      {/* ===== Row 7: Live Tracking ===== */}
+      {/* ===== Row 8: Live Tracking ===== */}
       <LiveTracking />
 
-      {/* ===== Row 8: Activity Timeline ===== */}
+      {/* ===== Row 9: Activity Timeline ===== */}
       <ChartCard title="Platform activity — last 8 months" icon={TrendingUp}>
         <AreaChart series={activitySeries} />
       </ChartCard>
