@@ -65,39 +65,41 @@ export function Donut({ items, tints, center, centerSub, onSliceClick }) {
 
   return (
     <div className="donut-wrap">
-      <ResponsiveContainer width="100%" height={220}>
-        <PieChart>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            innerRadius={55}
-            outerRadius={85}
-            paddingAngle={3}
-            dataKey="value"
-            onMouseEnter={(_, i) => setHovered(i)}
-            onMouseLeave={() => setHovered(null)}
-            onClick={(data, i) => onSliceClick?.(data)}
-            style={{ cursor: onSliceClick ? 'pointer' : 'default' }}
-          >
-            {data.map((entry, i) => (
-              <Cell
-                key={i}
-                fill={entry.fill}
-                stroke="transparent"
-                style={{
-                  filter: hovered === i ? 'brightness(1.2) drop-shadow(0 2px 8px rgba(0,0,0,0.3))' : 'none',
-                  transition: 'filter 0.2s',
-                }}
-              />
-            ))}
-          </Pie>
-          <Tooltip content={<ChartTooltip />} />
-        </PieChart>
-      </ResponsiveContainer>
-      <div className="donut-center-overlay">
-        <strong>{center ?? total}</strong>
-        <span>{centerSub || 'total'}</span>
+      <div className="donut-chart-area">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={data}
+              cx="50%"
+              cy="50%"
+              innerRadius={55}
+              outerRadius={85}
+              paddingAngle={3}
+              dataKey="value"
+              onMouseEnter={(_, i) => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+              onClick={(data, i) => onSliceClick?.(data)}
+              style={{ cursor: onSliceClick ? 'pointer' : 'default' }}
+            >
+              {data.map((entry, i) => (
+                <Cell
+                  key={i}
+                  fill={entry.fill}
+                  stroke="transparent"
+                  style={{
+                    filter: hovered === i ? 'brightness(1.2) drop-shadow(0 2px 8px rgba(0,0,0,0.3))' : 'none',
+                    transition: 'filter 0.2s',
+                  }}
+                />
+              ))}
+            </Pie>
+            <Tooltip content={<ChartTooltip />} />
+          </PieChart>
+        </ResponsiveContainer>
+        <div className="donut-center-overlay">
+          <strong>{center ?? total}</strong>
+          <span>{centerSub || 'total'}</span>
+        </div>
       </div>
       <div className="legend">
         {items.map((it, i) => (

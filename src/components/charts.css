@@ -9,23 +9,24 @@
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ---- Donut ---- */
-.donut-wrap { position: relative; }
+.donut-wrap { position: relative; display: flex; flex-direction: column; align-items: center; }
+.donut-chart-area { position: relative; width: 100%; height: 200px; }
 .donut-center-overlay {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -55%);
-  text-align: center; pointer-events: none;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  text-align: center; pointer-events: none; z-index: 2;
 }
-.donut-center-overlay strong { display: block; font-size: 22px; font-weight: 800; color: var(--text); }
-.donut-center-overlay span { font-size: 11px; color: var(--text-faint); }
+.donut-center-overlay strong { display: block; font-size: 24px; font-weight: 800; color: var(--text); line-height: 1.1; }
+.donut-center-overlay span { font-size: 11px; color: var(--text-faint); display: block; margin-top: 2px; }
 
-.legend { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.legend { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; width: 100%; }
 .legend-item {
-  display: flex; align-items: center; gap: 8px; font-size: 12.5px;
-  padding: 4px 8px; border-radius: 8px; cursor: default; transition: background 0.15s;
+  display: flex; align-items: center; gap: 8px; font-size: 13px;
+  padding: 5px 10px; border-radius: 8px; cursor: default; transition: background 0.15s;
 }
 .legend-item:hover, .legend-hover { background: rgba(0,0,0,0.04); }
 .legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
 .legend-item .lb { color: var(--text-dim); flex: 1; font-weight: 500; }
-.legend-item .lv { font-weight: 700; color: var(--text); }
+.legend-item .lv { font-weight: 700; color: var(--text); font-size: 14px; }
 
 /* ---- Tooltip ---- */
 .chart-tooltip {
