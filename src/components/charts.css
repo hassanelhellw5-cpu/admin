@@ -1,0 +1,96 @@
+.chart-empty {
+  color: var(--text-faint);
+  font-size: 13px;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ---- Donut ---- */
+.donut-wrap { position: relative; }
+.donut-center-overlay {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -55%);
+  text-align: center; pointer-events: none;
+}
+.donut-center-overlay strong { display: block; font-size: 22px; font-weight: 800; color: var(--text); }
+.donut-center-overlay span { font-size: 11px; color: var(--text-faint); }
+
+.legend { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+.legend-item {
+  display: flex; align-items: center; gap: 8px; font-size: 12.5px;
+  padding: 4px 8px; border-radius: 8px; cursor: default; transition: background 0.15s;
+}
+.legend-item:hover, .legend-hover { background: rgba(0,0,0,0.04); }
+.legend-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+.legend-item .lb { color: var(--text-dim); flex: 1; font-weight: 500; }
+.legend-item .lv { font-weight: 700; color: var(--text); }
+
+/* ---- Tooltip ---- */
+.chart-tooltip {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 8px 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  font-size: 12.5px;
+}
+.chart-tooltip-label { color: #6b7280; font-weight: 600; margin-bottom: 2px; }
+.chart-tooltip-val { font-weight: 700; font-size: 14px; }
+
+/* ---- Horizontal bar list (legacy fallback) ---- */
+.bar-list { display: flex; flex-direction: column; gap: 12px; padding: 6px 0; }
+.bar-row { display: flex; flex-direction: column; gap: 4px; }
+.bar-row-head { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; }
+.bar-row-label { color: var(--text-dim); font-weight: 600; }
+.bar-row-val { font-weight: 700; }
+.bar-row-track { height: 8px; border-radius: 999px; background: #eef0f6; overflow: hidden; }
+.bar-row-fill { height: 100%; border-radius: 999px; transition: width 0.4s ease; }
+
+/* ---- vertical bars ---- */
+.vbars { display: flex; align-items: flex-end; gap: 12px; height: 200px; padding: 10px 4px 0; }
+.vbar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; min-width: 0; }
+.vbar-val { font-weight: 700; font-size: 13px; }
+.vbar-track { width: 100%; max-width: 54px; height: 150px; background: #eef0f6; border-radius: 8px; display: flex; align-items: flex-end; overflow: hidden; }
+.vbar-fill { width: 100%; border-radius: 8px; transition: height 0.4s ease; }
+.vbar-label { font-size: 11px; color: var(--text-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+
+/* ---- chart legend ---- */
+.chart-series-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: var(--text-dim); }
+.chart-series-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; }
+
+/* ---- stat card tweaks ---- */
+.stat-card .stat-sub { font-size: 12px; color: var(--text-faint); margin-top: 4px; }
+
+/* ---- attention strip ---- */
+.attention-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.attention-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.attention-card:hover { border-color: var(--primary); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.attention-icon { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; flex-shrink: 0; }
+.attention-meta .a-label { font-size: 11.5px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.04em; font-weight: 700; }
+.attention-meta .a-value { font-size: 18px; font-weight: 700; }
+.attention-meta .a-sub { font-size: 11.5px; color: var(--text-dim); }
+
+/* ---- section headings ---- */
+.chart-section-title {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.05em; color: var(--text-dim); margin: 0 0 4px;
+}
+.chart-section-title svg { color: var(--primary); }
