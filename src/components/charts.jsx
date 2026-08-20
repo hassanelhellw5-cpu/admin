@@ -130,7 +130,7 @@ export function BarList({ items, tints, suffix = '', onBarClick }) {
   }))
 
   return (
-    <ResponsiveContainer width="100%" height={Math.max(160, items.length * 40 + 20)}>
+    <ResponsiveContainer width="100%" height={Math.max(70, items.length * 40 + 30)}>
       <BarChart data={data} layout="vertical" margin={{ left: 10, right: 20, top: 5, bottom: 5 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.06)" horizontal={false} />
         <XAxis type="number" tick={{ fill: '#6b7280', fontSize: 11 }} />
