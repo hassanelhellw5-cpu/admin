@@ -10,7 +10,7 @@ import { API_BASE } from '../config'
 function resolveUrl(u) {
   if (!u) return ''
   if (u.startsWith('http')) return u
-  const base = API_BASE.replace('/api', '') || 'http://brandmarketplace.runasp.net'
+  const base = API_BASE.replace('/api', '') || 'https://brandmarketplace.runasp.net'
   return u.startsWith('/') ? `${base}${u}` : `${base}/${u}`
 }
 
@@ -74,7 +74,7 @@ export default function Verifications() {
                     <UserCell
                       name={v.userDisplayName || v.userName || v.userId?.slice(0, 8)}
                       email={v.userEmail || v.userId}
-                      img={v.userPhoto ? (v.userPhoto.startsWith('http') ? v.userPhoto : `${API_BASE.replace('/api', '') || 'http://brandmarketplace.runasp.net'}${v.userPhoto.startsWith('/') ? v.userPhoto : '/' + v.userPhoto}`) : null}
+                      img={v.userPhoto ? (v.userPhoto.startsWith('http') ? v.userPhoto : `${API_BASE.replace('/api', '') || 'https://brandmarketplace.runasp.net'}${v.userPhoto.startsWith('/') ? v.userPhoto : '/' + v.userPhoto}`) : null}
                     />
                   </td>
                   <td>{v.verificationType || '—'}</td>

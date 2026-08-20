@@ -10,7 +10,7 @@ import { API_BASE } from '../config'
 function proofUrl(p) {
   if (!p) return ''
   if (p.startsWith('http')) return p
-  const base = API_BASE.replace('/api', '') || 'http://brandmarketplace.runasp.net'
+  const base = API_BASE.replace('/api', '') || 'https://brandmarketplace.runasp.net'
   return p.startsWith('/') ? `${base}${p}` : `${base}/${p}`
 }
 

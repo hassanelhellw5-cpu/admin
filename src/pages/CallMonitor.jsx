@@ -16,7 +16,7 @@ function formatDuration(seconds) {
 function resolvePhoto(url) {
   if (!url) return null
   if (url.startsWith('http')) return url
-  const base = API_BASE.replace('/api', '') || 'http://brandmarketplace.runasp.net'
+  const base = API_BASE.replace('/api', '') || 'https://brandmarketplace.runasp.net'
   return url.startsWith('/') ? `${base}${url}` : `${base}/${url}`
 }
 

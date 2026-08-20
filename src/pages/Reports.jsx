@@ -7,7 +7,7 @@ import { Loader, Empty, Pagination, StatusBadge, Avatar } from '../components/ui
 import Modal from '../components/Modal'
 import ImageLightbox from '../components/ImageLightbox'
 
-const API_ORIGIN = API_BASE.replace('/api', '') || 'http://brandmarketplace.runasp.net'
+const API_ORIGIN = API_BASE.replace('/api', '') || 'https://brandmarketplace.runasp.net'
 const resolveUrl = (u) => {
   if (!u) return ''
   if (u.startsWith('http')) return u

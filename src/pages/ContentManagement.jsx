@@ -12,7 +12,7 @@ const assetUrl = (u) => {
   if (!u) return ''
   if (u.startsWith('http')) return u
   // Relative paths need full backend origin since /uploads is not proxied
-  const backend = API_ORIGIN || 'http://brandmarketplace.runasp.net'
+  const backend = API_ORIGIN || 'https://brandmarketplace.runasp.net'
   return `${backend}${u.startsWith('/') ? '' : '/'}${u}`
 }
 

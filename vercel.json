@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "https://brandmarketplace.runasp.net/api/$1" },
+    { "source": "/hubs/(.*)", "destination": "https://brandmarketplace.runasp.net/hubs/$1" }
+  ]
+}
